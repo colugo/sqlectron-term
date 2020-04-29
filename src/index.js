@@ -1,4 +1,5 @@
-import 'babel-polyfill';
+// import 'babel-polyfill';
+// otherwise babel complains about being imported twice
 import 'react';
 import blessed from 'blessed';
 import { render } from 'react-blessed';

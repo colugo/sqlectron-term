@@ -25,6 +25,7 @@ export default class ServerForm extends Component {
   componentDidMount () {
     this.refs.form.focusNext();
 
+    this.refs.sqlserver.uncheck();
     this.refs.mysql.uncheck();
     this.refs.postgresql.uncheck();
     if (this.state.server && this.state.server.client) {
@@ -39,6 +40,7 @@ export default class ServerForm extends Component {
   }
 
   componentDidUpdate () {
+    this.refs.sqlserver.uncheck();
     this.refs.mysql.uncheck();
     this.refs.postgresql.uncheck();
     if (this.state.server && this.state.server.client) {
@@ -53,7 +55,7 @@ export default class ServerForm extends Component {
   handleSubmit (data) {
     const server = {};
 
-    const clients = [ 'mysql', 'postgresql' ];
+    const clients = ['sqlserver', 'mysql', 'postgresql' ];
     Object.keys(data)
       .filter(key => data[key]) // ignore falsy
       .filter(key => key.split('ssh.').length === 1) // ignore ssh
@@ -129,7 +131,7 @@ export default class ServerForm extends Component {
                   onKeypress={::this.handleKeypress}
                 />
               </box>
-              <box position={{ left: 0, top: 2, height: 2 }} style={styles}>
+              <box position={{ left: 0, top: 2, height: 3 }} style={styles}>
                 <radioset style={styles}>
                   <text
                     position={{ left: 0, top: 0 }}
@@ -138,8 +140,18 @@ export default class ServerForm extends Component {
                   />
                   <radiobutton
                     keys
-                    name="mysql"
+                    name="sqlserver"
                     position={{ left: 8, top: 0 }}
+                    style={styles}
+                    value={server && server.client === 'sqlserver'}
+                    content="SQLServer"
+                    ref="sqlserver"
+                    onKeypress={::this.handleKeypress}
+                  />
+                  <radiobutton
+                    keys
+                    name="mysql"
+                    position={{ left: 22, top: 0 }}
                     style={styles}
                     value={server && server.client === 'mysql'}
                     content="MySQL"
@@ -149,7 +161,7 @@ export default class ServerForm extends Component {
                   <radiobutton
                     keys
                     name="postgresql"
-                    position={{ left: 18, top: 0 }}
+                    position={{ left: 8, top: 1 }}
                     style={styles}
                     value={server && server.client === 'postgresql'}
                     content="PostgreSQL"
@@ -158,7 +170,7 @@ export default class ServerForm extends Component {
                   />
                 </radioset>
               </box>
-              <box position={{ left: 0, top: 4, height: 2 }} style={styles}>
+              <box position={{ left: 0, top: 5, height: 2 }} style={styles}>
                 <text
                   position={{ left: 0 }}
                   content="Port:"
@@ -188,7 +200,7 @@ export default class ServerForm extends Component {
                   onKeypress={::this.handleKeypress}
                 />
               </box>
-              <box position={{ left: 0, top: 6, height: 2 }} style={styles}>
+              <box position={{ left: 0, top: 7, height: 2 }} style={styles}>
                 <text
                   position={{ left: 0 }}
                   content="Unix Socket:"
@@ -204,7 +216,7 @@ export default class ServerForm extends Component {
                   onKeypress={::this.handleKeypress}
                 />
               </box>
-              <box position={{ left: 0, top: 8, height: 2 }} style={styles}>
+              <box position={{ left: 0, top: 9, height: 2 }} style={styles}>
                 <text
                   position={{ left: 0 }}
                   content="User:"
@@ -220,7 +232,7 @@ export default class ServerForm extends Component {
                   onKeypress={::this.handleKeypress}
                 />
               </box>
-              <box position={{ left: 0, top: 10, height: 2 }} style={styles}>
+              <box position={{ left: 0, top: 11, height: 2 }} style={styles}>
                 <text
                   position={{ left: 0 }}
                   content="Password:"
@@ -236,7 +248,7 @@ export default class ServerForm extends Component {
                   onKeypress={::this.handleKeypress}
                 />
               </box>
-              <box position={{ left: 0, top: 12, height: 2 }} style={styles}>
+              <box position={{ left: 0, top: 13, height: 1 }} style={styles}>
                 <text
                   position={{ left: 0 }}
                   content="Database:"

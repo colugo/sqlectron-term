@@ -72,6 +72,9 @@ class Database extends Component {
     case 'postgresql':
       query = `select * from "${item}" limit 1000`;
       break;
+    case 'sqlserver':
+      query = `select top(100) * from [${item}]`;
+      break;
     case 'mysql':
       query = `select * from \`${item}\` limit 1000`;
       break;
